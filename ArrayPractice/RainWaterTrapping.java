@@ -4,10 +4,11 @@ import java.sql.Array;
 
 public class RainWaterTrapping {
     public static void main(String[] args) {
-//       int [] height = {4,2,0,3,2,5};
-//        System.out.println(trap1(height));
-        EvilChild evilChild = new EvilChild();
-        System.out.println(evilChild.getValue());
+       int [] height = {4,2,0,3,2,5};
+        System.out.println(trap1(height));
+        System.out.println(power(5));
+//        EvilChild evilChild = new EvilChild();
+//        System.out.println(evilChild.getValue());
 
     }
 
@@ -52,8 +53,19 @@ public class RainWaterTrapping {
 
     }
 
+    public static boolean power(int num){
+
+        while (num!=4 && num>4){
+            int a= (int) Math.sqrt(num);
+            num = a;
+        }
+
+        return num==4?true:false;
+    }
+
 
     public static int trap1(int[] height){
+
 
         int left = 0;
         int right = height.length-1;
@@ -76,6 +88,10 @@ public class RainWaterTrapping {
         }
         return totalStoredWater;
     }
+
+
+
+
 }
 
 
