@@ -46,6 +46,7 @@ public class streamapiquestions {
         names1.stream().filter(a->a.startsWith("A")).forEach(System.out::println);
 
         // Q4. Convert all names to lowercase and print.
+        names.stream().map(name->name.toLowerCase()).forEach(System.out::println);
 
        // Q5. Count how many names have more than 4 characters.
         List<String> names2 = Arrays.asList("Ram", "Shyam", "Anjali", "Raj", "Rakesh");

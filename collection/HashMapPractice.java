@@ -4,6 +4,7 @@ import java.util.*;
 
 public class HashMapPractice {
     public static void main(String[] args) {
+
         HashMapPractice hashMapPractice = new HashMapPractice();
         hashMapPractice.frequencyOfArrayElement();
 
