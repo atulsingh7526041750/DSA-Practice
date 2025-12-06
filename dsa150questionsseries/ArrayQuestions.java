@@ -1,7 +1,7 @@
 package dsa150questionsseries;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class ArrayQuestions {
     public static void main(String[] args) {
@@ -12,8 +12,11 @@ public class ArrayQuestions {
 //        merge(nums1,m,nums2,n);
 //
 
-        int a = majorityElement(nums1);
-        System.out.println(a);
+//        int a = majorityElement(nums1);
+//        System.out.println(a);
+        String[]strings  = {"eat","tea","tan","ate","nat","bat"};
+        groupAnagrams(strings);
+
 
 
     }
@@ -187,4 +190,58 @@ public class ArrayQuestions {
         }
         return nums;
     }
+
+
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>>list = new ArrayList<>();
+        return list;
+
+
+    }
+
+    public static boolean containsDuplicate(int[] nums) {
+        Set<Integer>set = new HashSet<>();
+
+        int length = nums.length;
+        for(int i = 0;i<nums.length;i++){
+            set.add(nums[i]);
+
+        }
+
+        if(set.size()==nums.length){
+            return false;
+
+        }
+        return true;
+
+    }
+
+
+    public static List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>>list = new ArrayList<>();
+        Map<String,List<String>>map = new HashMap<>();
+        for (int i = 0;i<strs.length;i++){
+
+            String Value = strs[i];
+            char[] chars = strs[i].toCharArray();
+            Arrays.sort(chars);
+            String key = chars.toString();
+            if(map.containsKey(key)){
+                List<String> stringList = map.get(key);
+                stringList.add(Value);
+                map.put(key,stringList);
+            }
+            else {
+                List<String>list1 = new ArrayList<>();
+                list1.add(Value);
+                map.put(key,list1);
+            }
+        }
+        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+            list.add(entry.getValue());
+        }
+        return list;
+    }
+
+    
 }
