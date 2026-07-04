@@ -1,24 +1,16 @@
 package ArrayPractice;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class ArrayEasyQuestions {
     public static void main(String[] args) {
-
-        Integer a = 128;
-        Integer b = 128;
-        System.out.println(a==b);
-        System.out.println(a.equals(b));
-
-
-//        int []arr = {-5, 8, -14, 2, 4, 12};
-//        int k = -5;
-//
-
-       // rotate(arr,3);
-
+        int []nums = {2,13,11,15};
+        int target = 17;
+        twoSumBest(nums,target);
+        System.out.println(twoSumBest(nums,target));
     }
 
     /**
@@ -258,6 +250,7 @@ public class ArrayEasyQuestions {
  */
 //        public class SingleNumber {
 //            public int singleNumber(int[] nums) {
+        // supose a XOR b XOR a = b
 //                int result = 0;
 //                for (int num : nums) {
 //                    result ^= num;  // XOR each number
@@ -324,4 +317,315 @@ public class ArrayEasyQuestions {
 
         return maxLen;
     }
+
+    public static int removeDuplicatesTest(int[] nums){
+        int index=1;
+        int i=0;
+
+        while (index<nums.length) {
+            if (nums[i] == nums[index]) {
+                index++;
+            } else {
+                i++;
+                nums[i] = nums[index];
+            }
+
+        }
+        return i+1;
+
     }
+    public static void leftRotateByOnePlace(int[] nums) {
+        //3,2,1=> 1,2,3
+
+        for (int i = 0; i < nums.length - 1; i++) {
+
+            int temp = nums[i]; // 3
+            nums[i] = nums[i + 1]; // 1
+            nums[i + 1] = temp; //
+            for (int k = 0; k < nums.length; k++) {
+                System.out.print(nums[k] + ", ");
+            }
+            System.out.println("++++++++++");
+        }
+    }
+
+
+    public static void rotateArray(int[]arr,int start, int end){
+        int n = end;
+        int a=start;
+        int b = n-1;
+        while (a<b) {
+            swap(arr, a, b);
+            a++;
+            b--;
+        }
+    }
+    public static void swap(int[] arr, int a, int b){
+        int temp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = temp;
+    }
+
+
+    public static void rotateByKPlace(int[] nums, int k){
+        int n = nums.length;
+        k = k % n;
+        rotateArray(nums, 0, n - 1);
+        rotateArray(nums, 0, k - 1);
+        rotateArray(nums, k, n - 1);
+        for (int num : nums) {
+            System.out.print(num + " ");
+        }
+
+    }
+
+    public static void moveZeroesTest(int[] nums) {
+        int index1 = 0;
+        int index2 = 0;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i] !=0){
+                nums[index1] = nums[i];
+                index1++;
+            }
+        }
+        for(int i=index1;i<nums.length;i++){
+            nums[i]=0;
+        }
+        for (int num:nums
+             ) {
+            System.out.println(num);
+
+        }
+
+    }
+    public static void findMissingNumber(int[] nums) {
+        int n = nums.length+1;
+        int sum = (n*(n+1))/2;
+        int sum2 = 0;
+        for(int i=0;i<nums.length;i++){
+            sum2 = sum2 + nums[i];
+        }
+        System.out.println(sum-sum2);
+
+    }
+
+    public static int findMaxConsecutiveOnesTest(int[] nums) {
+    int max = 0;
+    int count = 0;
+    for(int i=0;i<nums.length;i++){
+        if(nums[i]!=0){
+            count++;
+            max = Math.max(count,max);
+        }
+        else {
+            count = 0;
+        }
+    }
+    return max;
+    }
+
+
+    // brute Force
+    public static int longestSubArrayWithSumK(int []arr,int k){
+        // int []nums = {1,2,3,1,1,1,1,4,2,3};
+        int index1 = 0;
+        int index2 = 0;
+        int length = 0;
+        int currentLength = 0;
+        for(int i=0;i<arr.length;i++){
+            int sum = 0;
+            for(int j=i;j<arr.length;j++){
+                sum = sum+arr[j];
+                if(sum ==k){
+                    currentLength = j-i+1;
+                    if(currentLength>length){
+                        length = currentLength;
+                        index1 = i;
+                        index2 = j;
+                    }
+
+                }
+            }
+        }
+        System.out.println("i ="+index1+" j ="+index2);
+        return length;
+    }
+
+    public static int longestSubArrayWithSumKBest(int []arr,int k){
+        int index1 = 0;
+        int index2 = 0;
+        int sum = 0;
+        int length = 0;
+        int a=0;
+        int b = 0;
+        for(int i=0;i<arr.length;i++){
+            sum = sum+arr[i];
+
+            if(sum>k){
+                while (sum>k){
+                    sum = sum-arr[index1];
+                    index1++;
+                }
+            }
+            if(sum == k){
+
+                length = Math.max(length,index2-index1+1);
+                // Below part is to find out the exact index of the array
+//                int currentLength = index2-index1+1;
+//                if(currentLength>length){
+//                    length = currentLength;
+//                    a = index1;
+//                    b = index2;
+//                }
+            }
+            index2++;
+
+        }
+        System.out.println(a+" "+ b);
+        return length;
+    }
+
+
+    public static int longestSubArrayWithSumKBestByStriver(int []arr,int k){
+        int left = 0;
+        int right = 0;
+        int sum = arr[0];
+        int length = 0;
+        int n = arr.length;
+        while (right<n){
+            while (sum>k && left<=right){
+                sum = sum-arr[left];
+                left++;
+            }
+            if(sum ==k){
+                length = Math.max(length, right-left+1);
+            }
+            right++;
+            if(right<n){
+            sum += arr[right];
+            }
+
+        }
+        return length;
+    }
+
+    public static int[] twoSumBruteForce(int[] nums, int target) {
+        int arr[]  = new int[2];
+        for(int i=0;i<nums.length;i++){
+            for(int j=i+1;j<nums.length;j++){
+              if(nums[i]+nums[j]==target){
+                  arr[0] = i;
+                  arr[1] = j;
+                  break;
+
+              }
+            }
+        }
+        return arr;
+    }
+
+
+    public static int[] twoSumBetter(int[] nums, int target) {
+        int arr[]  = new int[2];
+        Map<Integer,Integer>map = new HashMap<>();
+        for(int i=0;i<nums.length;i++){
+           int value = target-nums[i];
+           if(map.containsKey(value)){
+               arr[0] = map.get(value);
+               arr[1] = i;
+           }
+           map.put(nums[i],i);
+
+        }
+        return arr;
+    }
+
+
+    /**
+     *IN this if it is asked that don't use map
+     * But in this case you will just be able to return boolean otherwise you will have to put it in some other
+     * data structure with the index and every number value and then will have to sort it
+     */
+    public static boolean twoSumBest(int[] nums, int target) {
+        int arr[]  = new int[2];
+        int left = 0;
+        int right = nums.length-1;
+        boolean isPresent = false;
+        Arrays.sort(nums);
+        while (left<right){
+            int sum = nums[left]+nums[right];
+            if(sum==target){
+                isPresent = true;
+                return isPresent;
+            } else if (sum>target) {
+                right--;
+
+            } else if (sum<target) {
+                left++;
+            }
+        }
+        return isPresent;
+    }
+
+    public static int maxSubArray(int[] nums){
+        int currentSum = nums[0];
+        int maxSum = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            currentSum = Math.max(nums[i], currentSum + nums[i]);
+            maxSum = Math.max(maxSum, currentSum);
+        }
+        return maxSum;
+    }
+
+    /**
+     * Input: nums1 = [1, 2, 3, 4, 5], nums2 = [1, 2, 7]
+     * Output: [1, 2, 3, 4, 5, 7]
+     * @param arr1
+     * @param arr2
+     * @return
+     */
+
+    public static int[] unionArray(int[] arr1, int[] arr2) {
+
+        int n1 = arr1.length;
+        int n2 = arr2.length;
+
+        int[] union = new int[n1 + n2];
+
+        int i = 0, j = 0, k = 0;
+
+        while (i < n1 && j < n2) {
+
+            if (arr1[i] <= arr2[j]) {
+                if (k == 0 || union[k - 1] != arr1[i]) {
+                    union[k++] = arr1[i];
+                }
+                i++;
+            } else {
+                if (k == 0 || union[k - 1] != arr2[j]) {
+                    union[k++] = arr2[j];
+                }
+                j++;
+            }
+        }
+
+        while (i < n1) {
+            if (k == 0 || union[k - 1] != arr1[i]) {
+                union[k++] = arr1[i];
+            }
+            i++;
+        }
+
+        while (j < n2) {
+            if (k == 0 || union[k - 1] != arr2[j]) {
+                union[k++] = arr2[j];
+            }
+            j++;
+        }
+
+        return Arrays.copyOf(union, k);
+    }
+
+
+    }
+
