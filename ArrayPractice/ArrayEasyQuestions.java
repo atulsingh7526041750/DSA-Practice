@@ -1,16 +1,11 @@
 package ArrayPractice;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ArrayEasyQuestions {
     public static void main(String[] args) {
-        int []nums = {2,13,11,15};
-        int target = 17;
-        twoSumBest(nums,target);
-        System.out.println(twoSumBest(nums,target));
+        int []nums = {0,3,7,2,5,8,4,6,0,1};
+        System.out.println(longestConsecutiveBest(nums));
     }
 
     /**
@@ -627,5 +622,203 @@ public class ArrayEasyQuestions {
     }
 
 
+    public static int[] unionArrayTest(int[] arr1, int[] arr2) {
+        int n1 = arr1.length;
+        int n2 = arr2.length;
+        int [] union = new int[n1+n2];
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        while (i<n1 && j<n2){
+            if(arr1[i]<arr2[j]){
+                if(k==0 || union[k-1]!=arr1[i]){
+                    union[k++] = arr1[i];
+                }
+
+                i++;
+            }
+            else {
+                if(k==0 || union[k-1]!=arr2[j]){
+                    union[k++] = arr2[j];
+                }
+
+                j++;
+
+            }
+        }
+        while (i<n1){
+            if(k==0 || union[k-1]!=arr1[i]){
+                union[k++] = arr1[i];
+            }
+
+            i++;
+
+
+        }
+        while (j<n2){
+            if(k==0 || union[k-1]!=arr2[j]){
+                union[k++] = arr2[j];
+            }
+
+            j++;
+
+        }
+        return Arrays.copyOf(union,k);
+
     }
+
+    public static int majorityElement(int[] nums) {
+        int ans = 0;
+        int count = 0;
+
+        for(int i=0;i<nums.length;i++){
+
+            if(count == 0 || nums[i] == ans){
+                ans = nums[i];
+                count++;
+            }
+            else {
+                count--;
+            }
+
+        }
+        return ans;
+    }
+
+    public static int[] rearrangeArray(int[] nums) {
+    int n = nums.length;
+    int posIndex = 0;
+    int negIndex = 1;
+    int []arr = new int[n];
+    for(int i=0;i<n;i++){
+        if(nums[i]>0){
+            arr[posIndex] = nums[i];
+            posIndex = posIndex+2;
+        }
+        else {
+            arr[negIndex] = nums[i];
+            negIndex = negIndex+2;
+        }
+    }
+    return arr;
+    }
+
+    public static int maxProfit(int[] prices){
+        int min = Integer.MAX_VALUE;
+        int maxProfit = 0;
+        int buyIndex = -1;
+        int saleIndex = -1;
+        for (int price: prices) {
+            if(price<min){
+                min = price;
+            }
+            else {
+            maxProfit = Math.max(maxProfit,price-min);
+            }
+        }
+        return maxProfit;
+    }
+
+    //prices = [7,1,5,3,6,4]
+    public static int maxProfitWithIndex(int[] prices){
+        int min = Integer.MAX_VALUE;
+        int maxProfit = 0;
+        int buyIndex = -1;
+        int saleIndex = -1;
+        for (int i = 0;i<prices.length;i++) {
+            if(prices[i]<min){
+                min = prices[i];
+                buyIndex = i;
+            }
+            else {
+                if((prices[i]-min)>maxProfit ){
+                    maxProfit = prices[i]-min;
+                    saleIndex = i;
+                }
+//                maxProfit = Math.max(maxProfit,prices[i]-min);
+            }
+        }
+        System.out.println(buyIndex + " " + saleIndex);
+        return maxProfit;
+    }
+
+    /**
+     * Input: nums = [1, 2, 5, 3, 1, 2]
+     *
+     * Output: [5, 3, 2]
+     * @param nums
+     * @return
+     */
+    public static int longestConsecutive(int[] nums) {
+        int maxCount  = 0;
+        for(int i=0;i<nums.length;i++){
+            int count = 0;
+            int n = nums[i];
+            while (linearSearchHelper(nums,n++)){
+                    count++;
+                maxCount = Math.max(maxCount,count);
+            }
+        }
+        return maxCount;
+    }
+    /**
+     * Input: nums = [1, 2, 5, 3, 1, 2]
+     * [1,1,2,2,3,5]
+     * Output: [5, 3, 2]
+     * @param nums
+     * @return
+     */
+    public static int longestConsecutiveBetter(int[] nums) {
+        Arrays.sort(nums);
+        int maxCount = 0;
+        int count = 0;
+        for(int i=1;i<nums.length;i++){
+            int last = nums[i-1];
+            int number = nums[i];
+            if(number == last){
+                count = 0;
+                continue;
+            } else if (number == last + 1 ) {
+                count++;
+                maxCount = Math.max(maxCount,count);
+            }
+        }
+        return maxCount;
+        }
+
+
+    public static int longestConsecutiveBest(int[] nums) {
+        int n = nums.length;
+        Set<Integer>set = new HashSet<>();
+        int maxCount = 1;
+        for(int i=0;i<n;i++){
+            set.add(nums[i]);
+        }
+        for (Integer num:set) {
+            if(!set.contains(num-1)){
+                int count = 1;
+                int x = num;
+                while (set.contains(x+1)){
+                    x = x+1;
+                    count = count+1;
+                }
+                maxCount = Math.max(maxCount,count);
+
+            }
+            }
+        return maxCount;
+    }
+
+    public static boolean linearSearchHelper(int[] nums,int n) {
+        for(int i=0;i<nums.length;i++){
+            if(nums[i] == n){
+                return true;
+            }
+        }
+        return false;
+    }
+    }
+
+
+
 
