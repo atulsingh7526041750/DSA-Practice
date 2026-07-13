@@ -6,6 +6,9 @@ import java.util.Map;
 
 public class ArrayMediumQuestions {
     public static void main(String[] args) {
+        //nums = [2,3,-2,4]
+        int []nums = {2,3,-2,4};
+        System.out.println(maxProductBruteBest(nums));
 
     }
 
@@ -168,6 +171,63 @@ public class ArrayMediumQuestions {
             }
         }
         return maxProfit;
+    }
+
+    /**
+     * nums = [2,3,-2,4]
+     * output = 6
+     * @param nums
+     * @return
+     */
+    public static int maxProductBruteForce(int[] nums) {
+        int maxOutput = 0;
+        if(nums.length==1){
+            return nums[0];
+        }
+        for (int i=0;i<nums.length;i++){
+            int maxProd = 1;
+            for(int j=i;j<nums.length;j++){
+                maxProd = maxProd*nums[j];
+                maxOutput = Math.max(maxProd,maxOutput);
+            }
+        }
+        return maxOutput;
+    }
+    public static int maxProductBruteBest(int[] nums) {
+        int maxOutput = 0;
+        if(nums.length==1){
+            return nums[0];
+        }
+        int maxCount = 1;
+        for (int i=0;i<nums.length;i++){
+            if(nums[i]>0){
+                maxCount = maxCount*nums[i];
+                maxOutput = Math.max(maxCount,maxOutput);
+            }
+            else {
+                maxCount = 1;
+            }
+        }
+        return maxOutput;
+    }
+
+    /**
+     * Input: digits = [1,2,3]
+     * Output: [1,2,4]
+     */
+    public static int[] plusOne(int[] digits) {
+        int n = digits.length;
+        for(int i=n-1;i>=0;i--){
+            if(digits[i] != 9){
+                digits[i]++;
+                return digits;
+            }
+            digits[i] = 0;
+        }
+
+        int []result = new int[n+1];
+        result[0] = 1;
+        return result;
     }
 
 }
