@@ -4,8 +4,16 @@ import java.util.*;
 
 public class ArrayEasyQuestions {
     public static void main(String[] args) {
-        int []nums = {0,3,7,2,5,8,4,6,0,1};
-        System.out.println(longestConsecutiveBest(nums));
+        int []nums1 = {1,2,3,0,0,0};
+        int m = 3;
+        int n = 3;
+        int []nums2 = {2,2,6};
+        merge(nums1,m,nums2,n);
+        for (int i=0;i<nums1.length;i++){
+            System.out.println(nums1[i]);
+        }
+
+
     }
 
     /**
@@ -809,6 +817,13 @@ public class ArrayEasyQuestions {
         return maxCount;
     }
 
+    /**
+     * Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
+     * Output: [1,2,2,3,5,6]
+     * @param nums
+     * @param n
+     * @return
+     */
     public static boolean linearSearchHelper(int[] nums,int n) {
         for(int i=0;i<nums.length;i++){
             if(nums[i] == n){
@@ -817,7 +832,32 @@ public class ArrayEasyQuestions {
         }
         return false;
     }
+    public static void merge(int[] nums1, int m, int[] nums2, int n) {
+        int i = m-1;
+        int j = n-1;
+        int k = m+n-1;
+        while (i>=0 && j>=0){
+            if(nums1[i]>nums2[j]){
+                nums1[k] = nums1[i];
+                i--;
+                k--;
+            }
+            else {
+                nums1[k] = nums2[j];
+                j--;
+                k--;
+            }
+        }
+        while (j >= 0) {
+            nums1[k] = nums2[j];
+            j--;
+            k--;
+        }
     }
+    }
+
+
+
 
 
 
