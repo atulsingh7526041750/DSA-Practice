@@ -4,14 +4,19 @@ import java.util.*;
 
 public class ArrayEasyQuestions {
     public static void main(String[] args) {
-        int []nums1 = {1,2,3,0,0,0};
-        int m = 3;
-        int n = 3;
-        int []nums2 = {2,2,6};
-        merge(nums1,m,nums2,n);
-        for (int i=0;i<nums1.length;i++){
-            System.out.println(nums1[i]);
-        }
+        int []nums1 = {1,-2147483648,2};
+//        int n = Integer.MIN_VALUE;
+//        int n2 = -2147483648;
+//        boolean res = n2>n?true:false;
+//        System.out.println(res);
+//        int m = 3;
+//        int n = 3;
+//        int []nums2 = {9,4,9,8,4};
+//       int []arr =  intersection(nums1,nums2);
+//        for (int i=0;i<arr.length;i++){
+//            System.out.println(arr[i]);
+//        }
+        System.out.println(thirdMax(nums1));
 
 
     }
@@ -854,7 +859,107 @@ public class ArrayEasyQuestions {
             k--;
         }
     }
+
+    /**
+     * Example 1:
+     *
+     * Input: nums1 = [1,2,2,1], nums2 = [2,2]
+     * Output: [2]
+     * Example 2:
+     *
+     * Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+     * Output: [9,4]
+     * Explanation: [4,9] is also accepted.
+     * @param nums1
+     * @param nums2
+     * @return
+     */
+    public static int[] intersection(int[] nums1, int[] nums2) {
+        int length  = nums1.length>nums2.length?nums2.length:nums1.length;
+        int [] newArray = new int[length];
+        Arrays.sort(nums1);
+        Arrays.sort(nums2);
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        //    * Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+        // 4,5,9
+        // 4,4,8,9,9
+        while (i<nums1.length && j<nums2.length){
+            if(nums1[i]<nums2[j]){
+                i++;
+            } else if (nums1[i]>nums2[j]) {
+                j++;
+            } else if (nums1[i] == nums2[j]) {
+               if(k==0 || newArray[k-1] != nums1[i]){
+                   newArray[k] = nums1[i];
+                   k++;
+                   i++;
+                   j++;
+               }
+               else {
+                   i++;
+                   j++;
+               }
+
+            }
+        }
+        return Arrays.copyOf(newArray,k);
     }
+
+
+    // [1,2,2,5,3,5]
+    // [1,2,-2147483648]
+    // 1,-2147483648,2
+    public static int thirdMax(int[] nums) {
+            int max = Integer.MIN_VALUE;
+            int max_second = Integer.MIN_VALUE;
+            int max_third = Integer.MIN_VALUE;
+            int count = 0;
+            int count1 = 0;
+            for(int i=0;i<nums.length;i++){
+             if(nums[i]>max){
+                 if(nums[i]==Integer.MAX_VALUE){
+                     count1++;
+                 }
+                 max_third = max_second;
+                 max_second = max;
+                 max = nums[i];
+             }
+             if(nums[i]<max && nums[i]>=max_second){
+                 if(nums[i]==Integer.MAX_VALUE){
+                     count1++;
+                 }
+                 max_third = max_second;
+                 max_second = nums[i];
+                }
+             if(nums[i]<max && nums[i]<max_second && nums[i]>=max_third){
+                 if(nums[i]==Integer.MAX_VALUE){
+                     count1++;
+                 }
+
+                 max_third = nums[i];
+                 count++;
+                }
+            }
+            if(max_third == Integer.MIN_VALUE && count >0){
+                return max_third;
+
+            }
+            if(max_third == Integer.MIN_VALUE || count1 >0){
+                return max_third;
+
+            }
+            if(max_third == Integer.MIN_VALUE && count == 0){
+                return max;
+
+            }
+            if(max_third == max_second){
+                return max;
+            }
+            return max_third;
+        }
+        }
 
 
 
