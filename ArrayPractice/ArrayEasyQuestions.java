@@ -174,6 +174,14 @@ public class ArrayEasyQuestions {
         }
         return 0;
     }
+    public static boolean linearSearchBool(int []arr, int k){
+        for (int i=0;i<arr.length;i++){
+            if(arr[i]==k){
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * find the union of the number
@@ -911,55 +919,56 @@ public class ArrayEasyQuestions {
     // [1,2,2,5,3,5]
     // [1,2,-2147483648]
     // 1,-2147483648,2
+    // need to recheck below code
     public static int thirdMax(int[] nums) {
-            int max = Integer.MIN_VALUE;
-            int max_second = Integer.MIN_VALUE;
-            int max_third = Integer.MIN_VALUE;
-            int count = 0;
-            int count1 = 0;
+            Long max = null;
+            Long max_second = null;
+            Long max_third = null;
+
             for(int i=0;i<nums.length;i++){
-             if(nums[i]>max){
-                 if(nums[i]==Integer.MAX_VALUE){
-                     count1++;
-                 }
+                long val = nums[i];
+                if((max != null && nums[i] == val ) || (max_second != null && nums[i] == val )|| (max_third != null && nums[i] == val )){
+                    continue;
+                }
+             if(max == null || val>max){
                  max_third = max_second;
                  max_second = max;
-                 max = nums[i];
-             }
-             if(nums[i]<max && nums[i]>=max_second){
-                 if(nums[i]==Integer.MAX_VALUE){
-                     count1++;
-                 }
+                 max = val;
+             } else if (max_second == null || val>max_second) {
                  max_third = max_second;
-                 max_second = nums[i];
-                }
-             if(nums[i]<max && nums[i]<max_second && nums[i]>=max_third){
-                 if(nums[i]==Integer.MAX_VALUE){
-                     count1++;
-                 }
-
-                 max_third = nums[i];
-                 count++;
-                }
+                 max_second = val;
+             }else if (max_third == null || val>max_third) {
+                 max_third = val;
+             }
             }
-            if(max_third == Integer.MIN_VALUE && count >0){
-                return max_third;
-
-            }
-            if(max_third == Integer.MIN_VALUE || count1 >0){
-                return max_third;
-
-            }
-            if(max_third == Integer.MIN_VALUE && count == 0){
-                return max;
-
-            }
-            if(max_third == max_second){
-                return max;
-            }
-            return max_third;
+            return (max_third == null?max.intValue():max_third.intValue());
         }
+
+    /**
+     *
+     * @param nums
+     * @return
+     */
+    // 3,3,3
+    // 4,3,2,7,8,2,3,1
+    //
+    // 1,2,2,3,3,4,7,8
+    public static List<Integer> findDisappearedNumbers(int[] nums) {
+        List<Integer>list = new ArrayList<>();
+        for(int i=0;i<nums.length;i++){
+            int index = Math.abs(nums[i])-1;
+            if(nums[index]>0){
+                nums[index] = -nums[index];
+            }
         }
+        for(int j=0;j<nums.length;j++){
+            if(nums[j]>0){
+                list.add(j+1);
+            }
+        }
+        return list;
+    }
+}
 
 
 
