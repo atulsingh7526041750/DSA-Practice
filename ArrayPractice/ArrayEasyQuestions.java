@@ -951,7 +951,7 @@ public class ArrayEasyQuestions {
      */
     // 3,3,3
     // 4,3,2,7,8,2,3,1
-    //
+    // -4,-3,-2,-7,8,2,-3,-1
     // 1,2,2,3,3,4,7,8
     public static List<Integer> findDisappearedNumbers(int[] nums) {
         List<Integer>list = new ArrayList<>();
@@ -967,6 +967,18 @@ public class ArrayEasyQuestions {
             }
         }
         return list;
+    }
+
+
+    public static void reverseString(char[] s) {
+        int start = 0;
+        int end = s.length-1;
+        while (start<=end){char temp = s[start];
+            s[start] = s[end];
+            s[end] = temp;
+            start++;
+            end--;
+        }
     }
 }
 

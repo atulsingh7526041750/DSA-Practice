@@ -229,5 +229,8 @@ public class ArrayMediumQuestions {
         result[0] = 1;
         return result;
     }
+    public static String longestPalindrome(String s) {
+        
+    }
 
 }
