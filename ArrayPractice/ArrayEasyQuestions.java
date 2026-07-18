@@ -16,7 +16,18 @@ public class ArrayEasyQuestions {
 //        for (int i=0;i<arr.length;i++){
 //            System.out.println(arr[i]);
 //        }
-        System.out.println(thirdMax(nums1));
+        int [][] practiceArray = {
+                {1,1,1},
+                {1,0,1},
+                {1,1,1}
+        };
+        // Input: matrix = [[1,1,1],[1,0,1],[1,1,1]]
+        //Output: [[1,0,1],[0,0,0],[1,0,1]]
+//        printMatric(practiceArray);
+        setZeroesBetter(practiceArray);
+
+//        int [][] practiceArray2 = new int[5][6];
+//        System.out.println(thirdMax(nums1));
 
 
     }
@@ -978,6 +989,81 @@ public class ArrayEasyQuestions {
             s[end] = temp;
             start++;
             end--;
+        }
+    }
+    public static void printMatric(int[][]arr){
+        int m = arr.length;
+        int n = arr[0].length;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                System.out.println(arr[i][j]);
+            }
+        }
+    }
+
+    /**
+     * Input: matrix = [[1,1,1],[1,0,1],[1,1,1]]
+     * Output: [[1,0,1],[0,0,0],[1,0,1]]
+     * @param matrix
+     */
+    public static void setZeroes(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        for (int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(matrix[i][j] == 0){
+                    markRow(matrix,i);
+                    markColumn(matrix,j);
+                }
+
+            }
+        }
+        for (int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(matrix[i][j] == -1){
+                    matrix[i][j] = 0;
+                }
+
+            }
+        }
+        printMatric(matrix);
+    }
+    public static void setZeroesBetter(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int row[] = new int[m];
+        int col[] = new int[n];
+        for (int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(matrix[i][j] == 0){
+                    row[i]=1;
+                    col[j]=1;
+                }
+
+            }
+        }
+        for (int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(row[i]==1||col[j]==1){
+                    matrix[i][j]=0;
+
+                }
+
+            }
+        }
+        printMatric(matrix);
+    }
+
+    public static void markRow(int[][] matrix,int i) {
+        int n = matrix[0].length;
+        for(int j=0;j<n;j++){
+            matrix[i][j]=-1;
+        }
+    }
+    public static void markColumn(int[][] matrix,int j) {
+        int m = matrix.length;
+        for(int i=0;i<m;i++){
+            matrix[i][j]=-1;
         }
     }
 }
