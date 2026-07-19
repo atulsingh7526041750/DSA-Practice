@@ -1,6 +1,9 @@
 package javamemorymanagement;
 
+import oops.Atul;
+
 public class GCTest {
+
 
     static class User {
         int id;
@@ -16,6 +19,7 @@ public class GCTest {
     }
 
     public static void main(String[] args) {
+
 
         createObjects();
 
