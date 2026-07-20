@@ -3,6 +3,7 @@ package ArrayPractice;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 public class ArrayMediumQuestions {
     public static void main(String[] args) {
@@ -229,8 +230,28 @@ public class ArrayMediumQuestions {
         result[0] = 1;
         return result;
     }
-    public static String longestPalindrome(String s) {
 
+    public static boolean isValid(String s) {
+        while (s.contains("()")||s.contains("{}")||s.contains("[]")){
+            s = s.replace("()","");
+            s = s.replace("{}","");
+            s = s.replace("[]","");
+        }
+        return s.isEmpty();
     }
+//    public static boolean isValidUsingStack(String s) {
+//        Stack<String>stack = new Stack<>();
+//        char []characters = s.toCharArray();
+//        for (int i=0;i<characters.length;i++){
+//            if(characters[] || s.charAt(i)==( || s.charAt(i)==()
+//        }
+//
+//        return s.isEmpty();
+//    }
+
+
+//        public static String longestPalindrome(String s) {
+//
+//    }
 
 }

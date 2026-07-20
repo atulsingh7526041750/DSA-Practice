@@ -5,51 +5,13 @@ import java.util.*;
 
 public class StrPractice {
     public static void main(String[] args) {
-//        String[] strings = {"atul","Atu","At"};
-//        System.out.println(reverseWords("Atul singh varanasi"));
-//
-//        System.out.println(strStr("sabbutsad","mad"));
-//
-//        System.out.println(longestSubString("abcabcdabc"));
+        String str1 = "f11";
+        String str2 = "b23";
 
-//        System.out.println(isAnagram("deek","keed"));
-//        String str = "Absdvnsd";
+        System.out.println(isIsomorphic(str1,str2));
 
 
-      //  System.out.println(firstNonRepeatingCharacter("aabbcde"));
-//
-// String st = "dog dog dog dog";
-//
-//        System.out.println(wordPattern("abba",st));
-//        System.out.println(findShortestSubstring("xabbcacpqr"));
-
-
-//        System.out.println(strings[0].indexOf("tul"));
-////        String str = "Hello From Mumbai";
-//        System.out.println(longestCommonPrefix(strings));
-//        System.out.println(str.indexOf("t"));
-//        char [] chars=  new char[str.length()];
-//        System.out.println(chars[0]+" "+chars.length+""+str.charAt(0));
-//        int start = 0;
-//        for(int i=str.length()-1;i>=0;i--)
-//            {
-//            chars[start] = str.charAt(i);
-//            start++;
-//            }
-//        for(int i = 0;i< chars.length;i++){
-//        System.out.print(chars[i]);}
-//
-//
-//StringBuilder stringBuilder = new StringBuilder();
-
-//        String[]str = {"flower","flow","fl"};
-//
-////        longestCommonPref(str);
-//        System.out.println(longestCommonPref(str));
-
-
-//        System.out.println(longCom("aabbbdbccccc"));
-        System.out.println(checkAnagram("litsen","silent"));
+//        System.out.println(checkAnagram("litsen","silent"));
 
 
     }
@@ -474,6 +436,50 @@ public class StrPractice {
         }
         return true;
 
+    }
+    public static int strStri(String haystack, String needle) {
+        for(int i=0;i<haystack.length();i++){
+            if(haystack.charAt(i) == needle.charAt(0)  && needle.length()<=haystack.length()){
+
+                if(i+needle.length()<=haystack.length() && haystack.substring(i,i+needle.length()).equals(needle)){
+                    return i;
+                }
+
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Input: s = "egg", t = "add"
+     * Output: true
+     */
+    public static boolean isIsomorphic(String s, String t) {
+        Map<Character,Character>map = new HashMap<>();
+        if(s.length()==t.length()){
+            int first = 0;
+            int second = 0;
+            while (first<s.length() && second<t.length()){
+                if(map.containsKey(s.charAt(first)) && !map.get(s.charAt(first)).equals(t.charAt(second)) || !map.containsKey(s.charAt(first)) && map.containsValue(t.charAt(second))){
+                    return false;
+                }
+                if(map.containsKey(s.charAt(first)) && map.get(s.charAt(first)).equals(t.charAt(second))){
+                    first++;
+                    second++;
+                }
+
+                else {
+                    map.put(s.charAt(first),t.charAt(second));
+                    first++;
+                    second++;
+                }
+            }
+
+        }
+        else {
+            return false;
+        }
+        return true;
     }
 
 
