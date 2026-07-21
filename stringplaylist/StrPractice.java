@@ -5,10 +5,14 @@ import java.util.*;
 
 public class StrPractice {
     public static void main(String[] args) {
-        String str1 = "f11";
-        String str2 = "b23";
+        String str1 = "abccccdd";
 
-        System.out.println(isIsomorphic(str1,str2));
+        String str2 = "b23";
+        String str3 = "aeiou";
+//        System.out.println(str1.charAt(0) == 'I');
+
+
+       System.out.println(longestPalindrome(str1));
 
 
 //        System.out.println(checkAnagram("litsen","silent"));
@@ -482,6 +486,94 @@ public class StrPractice {
         return true;
     }
 
+
+    /**
+     *
+     * @param s
+     * @return
+     */
+
+        public String reverseVowels(String s) {
+            int first = 0;
+            char[]chars = s.toCharArray();
+            int last = s.length()-1;
+            while (first<=last){
+                while (first<=last && !isVowel(chars[first])){
+                    first++;
+                }
+                while (first<=last && !isVowel(chars[last])){
+                    last--;
+                }
+                if (first >= last) {
+                    break;
+                }
+                if (first < last) {
+                    char temp = chars[first];
+                    chars[first] = chars[last];
+                    chars[last] = temp;
+                    first++;
+                    last--;
+                }
+            }
+            return new String(chars);
+        }
+        public  boolean isVowel(char ch) {
+            ch = Character.toLowerCase(ch);
+            return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u';
+        }
+
+
+
+        //
+
+    public static int longestPalindrome(String s) {
+            char[]chars = s.toCharArray();
+            int count =0;
+            int count2 = 0;
+            int longest = 0;
+            Map<Character,Integer>map = new HashMap<>();
+            for (int i=0;i<s.length();i++){
+                if(map.containsKey(s.charAt(i))){
+                    map.put(s.charAt(i),map.get(s.charAt(i))+1);
+                }
+                else {
+                    map.put(s.charAt(i),1);
+                }
+            }
+            for (Map.Entry<Character,Integer> entry:map.entrySet()){
+                if(entry.getValue() == 1){
+                    count =1;
+                }
+                else {
+                    if(entry.getValue()%2 == 0){
+                        longest = longest + entry.getValue();
+                    }
+                    else {
+                        count2 =1;
+                        longest = longest + entry.getValue() -1;
+                    }
+                }
+
+
+
+            }
+            if(count == 1 && count2 ==1){
+                return longest+1;
+            }
+            if(count !=1 && count2 ==1){
+                return longest+1;
+            }
+        if(count ==1 && count2 !=1){
+            return longest+1;
+        }
+            return longest;
+
+    }
+
+
+    public static boolean repeatedSubstringPattern(String s) {
+
+    }
 
 
 
