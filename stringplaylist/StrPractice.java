@@ -567,18 +567,16 @@ public class StrPractice {
             return longest+1;
         }
             return longest;
-
     }
 
-
-    public static boolean repeatedSubstringPattern(String s) {
-
+    public static char findTheDifference(String s, String t) {
+        char result = 0;
+        for (char c : s.toCharArray()) {
+            result ^= c;
+        }
+        for (char c : t.toCharArray()) {
+            result ^= c;
+        }
+        return result;
     }
-
-
-
-
-
-
-
 }
