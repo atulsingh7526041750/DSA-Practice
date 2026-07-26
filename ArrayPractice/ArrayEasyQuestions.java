@@ -24,7 +24,7 @@ public class ArrayEasyQuestions {
         // Input: matrix = [[1,1,1],[1,0,1],[1,1,1]]
         //Output: [[1,0,1],[0,0,0],[1,0,1]]
 //        printMatric(practiceArray);
-        rotateBest(practiceArray);
+        spiralOrder(practiceArray);
 
 //        int [][] practiceArray2 = new int[5][6];
 //        System.out.println(thirdMax(nums1));
@@ -996,8 +996,9 @@ public class ArrayEasyQuestions {
         int n = arr[0].length;
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
-                System.out.println(arr[i][j]);
+                System.out.print(arr[i][j]+" ");
             }
+            System.out.println();
         }
     }
 
@@ -1069,7 +1070,8 @@ public class ArrayEasyQuestions {
 
     /**
      * below one is the brute force solution
-     *
+     * time complexity of this solution is O[n^2]
+     * space complexity of this solution is O[n^2]
      * @param matrix
      */
 
@@ -1086,6 +1088,20 @@ public class ArrayEasyQuestions {
         printMatric(newArr);
 
     }
+    public static void reverseArray(int[]arr){
+     int left = 0;
+     int right = arr.length-1;
+     while (left<=right){
+         int temp = arr[left];
+         arr [left] = arr[right];
+         arr[right]  = temp;
+         left++;
+         right--;
+
+     }
+        System.out.println("+++++++++++++");
+//        return arr;
+    }
 
     /**
      * in this solution we have done in the matrix itself
@@ -1096,8 +1112,8 @@ public class ArrayEasyQuestions {
     public static void rotateBest(int[][] matrix) {
         int m = matrix.length;
         int n = matrix[0].length;
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
+        for(int i=0;i<m-1;i++){
+            for(int j=i+1;j<n;j++){
                 if(i!=j){
                 int temp = matrix[i][j];
                 matrix[i][j] = matrix[j][i];
@@ -1105,9 +1121,76 @@ public class ArrayEasyQuestions {
                 }
             }
         }
+        for(int i=0;i<m;i++){
+            reverseArray(matrix[i]);
+        }
         printMatric(matrix);
-
     }
+
+
+    public static List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> list = new ArrayList<>();
+        int rows = matrix.length;
+        int columns = matrix[0].length;
+        int left = 0;
+        int right = columns - 1;
+        int top = 0;
+        int bottom = rows - 1;
+
+
+        while (left <= right && top <= bottom) {
+            // right
+            for (int i = left; i <= right; i++) {
+                list.add(matrix[top][i]);
+            }
+            top++;
+            // bottom
+            for (int i = top; i <= bottom; i++) {
+                list.add(matrix[i][right]);
+            }
+            right--;
+
+            //left
+            if(top<=bottom){
+            for (int i = right; i >=left; i--) {
+                list.add(matrix[bottom][i]);
+            }
+            bottom--;
+            }
+            if(left<=right){
+            //top
+            for (int i = bottom; i >= top; i--) {
+                list.add(matrix[i][left]);
+            }
+            left++;}
+        }
+        if(left<=right){
+            for (Integer list1:list) {
+                System.out.println(list1);
+
+            }
+        }
+
+        return list;
+    }
+
+    // 1,1,1
+    // k=2
+//    public static int subarraySum(int[] nums, int k) {
+//        int count = 0;
+//        int sum = 0;
+//        for(int i=0;i<nums.length;i++){
+//            for(int j=i;j<nums.length;j++){
+//                sum = sum + nums[j];
+//                if(sum==k){
+//                    count++;x
+//                }
+//            }
+//            sum = 0;
+//        }
+//        return count;
+//    }
+
 }
 
 
