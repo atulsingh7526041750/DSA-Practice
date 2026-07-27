@@ -2,6 +2,7 @@ package stringplaylist;
 
 import java.security.PublicKey;
 import java.util.*;
+import java.util.stream.Stream;
 
 public class StrPractice {
     public static void main(String[] args) {
@@ -17,17 +18,8 @@ public class StrPractice {
         String str = "35427";
         String s = "abcde";
         String goal = "cdeab";
-
-//        String[] str12 = str.split("");
-//        System.out.println(str12[0]);
-
-
-//        int number = str.charAt(str.length()-1)-'0';
-        System.out.println(rotateString(s,goal));
-
-
-//        System.out.println(checkAnagram("litsen","silent"));
-
+        sortMap();
+        frequencySort("tree");
 
     }
 
@@ -591,27 +583,43 @@ public class StrPractice {
 
 
     public static boolean rotateString(String s, String goal) {
-        char firstS = s.charAt(0);
-        char firstG = goal.charAt(0);
-        int i = 0;
-        if(firstS == firstG && !s.equals(goal)){
+        if(s.length() != goal.length()){
             return false;
         }
-        if (s.equals(goal)){
-            return true;
-        }
-        if (firstS!=firstG){
-            while (goal.charAt(i)!=firstS){
-                i++;
-            }
-            if(goal.substring(i,goal.length()).equals(s.substring(0,i)) && s.substring(i,s.length()).equals(goal.substring(0,i))){
-                return true;
-            }
-            System.out.println(i);
-        }
-        return false;
+        return (s+s).contains(goal);
+    }
+
+    public static void sortMap(){
+        Map<String,Integer> map = new TreeMap<>();
+
+        map.put("Atul",4);
+        map.put("Uddeshya",6);
+        map.put("Shubham",3);
+        map.put("Alok",8);
+        Map<String, Integer> sortedMap = new TreeMap<>(map);
+
+
+        System.out.println(map);
+        System.out.println(sortedMap);
 
     }
+
+    public static String frequencySort(String s) {
+        Map<Character,Integer>map = new HashMap<>();
+        for (char c:s.toCharArray()) {
+            map.put(c,map.getOrDefault(c,0)+1);
+        }
+        List<Map.Entry<Character,Integer>>maps = new ArrayList<>(map.entrySet());
+        maps.sort((a,b)->b.getValue()-a.getValue());
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Map.Entry<Character, Integer> entry : maps) {
+            for(int i=0;i<entry.getValue();i++){
+                stringBuilder.append(entry.getKey());
+            }
+        }
+        return stringBuilder.toString();
+    }
+
 //    public String addBinary(String a, String b) {
 //        int i = a.length() - 1;
 //        int j = b.length() - 1;
