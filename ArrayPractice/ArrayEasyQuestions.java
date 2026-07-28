@@ -1173,6 +1173,25 @@ public class ArrayEasyQuestions {
 
         return list;
     }
+    public static boolean containsNearbyDuplicate(int[] nums, int k) {
+        Map<Integer,Integer>map = new HashMap<>();
+        for(int i=0;i<nums.length;i++){
+            if(map.containsKey(nums[i])){
+                int value = map.get(nums[i]);
+                if(Math.abs(i-value) <= k){
+                    return true;
+                }
+                else {
+                    map.put(nums[i],i);
+                }
+            }
+            else {
+                map.put(nums[i],i);
+            }
+        }
+        return false;
+
+    }
 
     // 1,1,1
     // k=2

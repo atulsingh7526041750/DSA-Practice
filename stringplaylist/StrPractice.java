@@ -14,12 +14,14 @@ public class StrPractice {
 
 
 //        System.out.println(longestPalindrome(str1));
+        int []arr = {1,2,3,1,2,3};
+        System.out.println(containsNearbyDuplicate(arr,1));
 
-        String str = "35427";
-        String s = "abcde";
-        String goal = "cdeab";
-        sortMap();
-        frequencySort("tree");
+//        String str = "35427";
+//        String s = "abcde";
+//        String goal = "cdeab";
+//        sortMap();
+//        frequencySort("tree");
 
     }
 
@@ -620,6 +622,29 @@ public class StrPractice {
         return stringBuilder.toString();
     }
 
+    // [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
+//    public static List<List<Integer>> generate(int numRows) {
+//        List<List<Integer>>listList = new ArrayList<>();
+//        List<Integer>list;
+//        for(int i=1;i<numRows;i++){
+//            if(i==1){
+//            list = new ArrayList<>();
+//            list.add(i);
+//                listList.add(list);
+//            }
+//            if(i==2){
+//                list = new ArrayList<>();
+//                list.add(1);
+//                list.add(1);
+//                listList.add(list);
+//            }
+//            if (i>=3){
+//
+//            }
+//        }
+//
+//    }
+
 //    public String addBinary(String a, String b) {
 //        int i = a.length() - 1;
 //        int j = b.length() - 1;
@@ -643,4 +668,7 @@ public class StrPractice {
 //        return result.reverse().toString();
 //
 //    }
+
+
+
 }
