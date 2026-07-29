@@ -1192,6 +1192,33 @@ public class ArrayEasyQuestions {
         return false;
 
     }
+    public static int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        int []arr = new int[nums1.length];
+        int first = 0;
+        while (first<nums1.length){
+            boolean flag = false;
+            int second = 0;
+            while (nums1[first] != nums2[second] && second< nums2.length){
+                second++;
+            }
+            for(int i=second;i<nums2.length;i++){
+                if(nums2[i]>nums1[first]){
+                    arr[first] = nums2[i];
+                    flag = true;
+                    break;
+                }
+            }
+            if(!flag){
+                arr[first] = -1;
+            }
+            first++;
+            flag = false;
+
+        }
+
+        return arr;
+
+    }
 
     // 1,1,1
     // k=2
