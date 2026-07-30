@@ -1219,8 +1219,49 @@ public class ArrayEasyQuestions {
         return arr;
 
     }
+    public int[] nextGreaterElementBest(int[] nums1, int[] nums2) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        Stack<Integer> stack = new Stack<>();
 
-    // 1,1,1
+        // Find next greater element for every element in nums2
+        for (int num : nums2) {
+            while (!stack.isEmpty() && num > stack.peek()) {
+                map.put(stack.pop(), num);
+            }
+            stack.push(num);
+        }
+
+        // Remaining elements have no next greater element
+        while (!stack.isEmpty()) {
+            map.put(stack.pop(), -1);
+        }
+
+        // Build answer for nums1
+        int[] ans = new int[nums1.length];
+        for (int i = 0; i < nums1.length; i++) {
+            ans[i] = map.get(nums1[i]);
+        }
+
+        return ans;
+    }
+
+    public static List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> answerList = new ArrayList<>();
+        for(int i=0;i<numRows;i++){
+            List<Integer>list = new ArrayList<>();
+            for(int j=0;j<=i;j++){
+                if(j==0 || j==i){
+                    list.add(1);
+                }
+                else {
+                    list.add(answerList.get(i-1).get(j-1)+answerList.get(i-1).get(j));
+                }
+            }
+            answerList.add(list);
+        }
+        return answerList;
+    }
+        // 1,1,1
     // k=2
 //    public static int subarraySum(int[] nums, int k) {
 //        int count = 0;
