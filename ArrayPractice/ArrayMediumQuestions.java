@@ -1,15 +1,21 @@
 package ArrayPractice;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
 
 public class ArrayMediumQuestions {
     public static void main(String[] args) {
         //nums = [2,3,-2,4]
         int []nums = {2,3,-2,4};
-        System.out.println(maxProductBruteBest(nums));
+        String[]strings = {"eat","tea","tan","ate","nat","bat"};
+        System.out.println(groupAnagrams(strings));
+
+
+//        Arrays.stream(strings).sorted();
+//        for (int i=0;i<strings.length;i++){
+//            System.out.println(strings[i]);
+//        }
+//        System.out.println(strings);
+
 
     }
 
@@ -239,19 +245,31 @@ public class ArrayMediumQuestions {
         }
         return s.isEmpty();
     }
-//    public static boolean isValidUsingStack(String s) {
-//        Stack<String>stack = new Stack<>();
-//        char []characters = s.toCharArray();
-//        for (int i=0;i<characters.length;i++){
-//            if(characters[] || s.charAt(i)==( || s.charAt(i)==()
-//        }
-//
-//        return s.isEmpty();
-//    }
+    public static List<List<String>> groupAnagrams(String[] strs) {
+        List<List<String>>list = new ArrayList<>();
+        Map<String,List<String>>map = new HashMap<>();
+        for (int i = 0;i<strs.length;i++){
+            String Value = strs[i];
+            char[] chars = strs[i].toCharArray();
+            Arrays.sort(chars);
+            String key = new String(chars);
 
+            if(map.containsKey(key)){
+                List<String> stringList = map.get(key);
+                stringList.add(Value);
+                map.put(key,stringList);
+            }
+            else {
+                List<String>list1 = new ArrayList<>();
+                list1.add(Value);
+                map.put(key,list1);
+            }
+        }
+        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+            list.add(entry.getValue());
+        }
+        return list;
 
-//        public static String longestPalindrome(String s) {
-//
-//    }
+    }
 
 }
