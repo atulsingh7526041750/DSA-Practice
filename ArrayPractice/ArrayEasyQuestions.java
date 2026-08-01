@@ -4,7 +4,7 @@ import java.util.*;
 
 public class ArrayEasyQuestions {
     public static void main(String[] args) {
-        int []nums1 = {1,-2147483648,2};
+      //  int []nums1 = {1,-2147483648,2};
 //        int n = Integer.MIN_VALUE;
 //        int n2 = -2147483648;
 //        boolean res = n2>n?true:false;
@@ -16,15 +16,21 @@ public class ArrayEasyQuestions {
 //        for (int i=0;i<arr.length;i++){
 //            System.out.println(arr[i]);
 //        }
-        int [][] practiceArray = {
-                {1,2,3},
-                {4,5,6},
-                {7,8,9}
-        };
+//        int [][] practiceArray = {
+//                {1,2,3},
+//                {4,5,6},
+//                {7,8,9}
+//        };
+        int[]arr = {0,1,2,4,5,7};
+
+        System.out.println( summaryRanges(arr));
+
+
+      //  System.out.println(getRow(3));
         // Input: matrix = [[1,1,1],[1,0,1],[1,1,1]]
         //Output: [[1,0,1],[0,0,0],[1,0,1]]
 //        printMatric(practiceArray);
-        spiralOrder(practiceArray);
+//        spiralOrder(practiceArray);
 
 //        int [][] practiceArray2 = new int[5][6];
 //        System.out.println(thirdMax(nums1));
@@ -1260,6 +1266,82 @@ public class ArrayEasyQuestions {
             answerList.add(list);
         }
         return answerList;
+    }
+    public static List<Integer> getRow(int rowIndex) {
+        List<List<Integer>>listList = new ArrayList<>();
+        for(int i=0;i<=rowIndex;i++){
+            List<Integer>integerList = new ArrayList<>();
+            for(int j=0;j<=i;j++){
+                if(j==0 || j==i){
+                    integerList.add(1);
+                }
+                else {
+                    integerList.add(listList.get(i-1).get(j-1)+listList.get(i-1).get(j));
+                }
+            }
+            listList.add(integerList);
+
+        }
+        return  listList.get(rowIndex);
+    }
+    //[0,1,2,4,5,7]
+    // ["0->2","4->5","7"]
+
+    // Input: nums = [0,2,3,4,6,8,9]
+    //Output: ["0","2->4","6","8->9"]
+    public static List<String> summaryRanges(int[] nums) {
+        List<String>stringList = new ArrayList<>();
+        int currentIndex = 0;
+        for (int i=0;i<nums.length;i++){
+            if(currentIndex == nums.length-1){
+                stringList.add(""+nums[currentIndex]+"");
+                break;
+            } else if (nums[i+1]-nums[i]==1) {
+                if(i+1 == nums.length-1){
+                    stringList.add(""+nums[currentIndex]+"->"+nums[i+1]+"");
+                    currentIndex = i+1;
+                    break;
+                } else {
+                    continue;
+                }
+            } else {
+                if((i+1)-currentIndex==1){
+                    stringList.add(""+nums[currentIndex]+"");
+                    currentIndex = i+1;
+                }
+                if((i+1)-currentIndex>1)
+                {
+                    stringList.add(""+nums[currentIndex]+"->"+nums[i]+"");
+                    currentIndex=i+1;
+                }
+            }
+        }
+        return stringList;
+
+    }
+    public List<Integer> getRowBest(int rowIndex) {
+
+        List<List<Integer>> listList = new ArrayList<>();
+
+        for (int i = 0; i <= rowIndex; i++) {
+            List<Integer> integerList = new ArrayList<>();
+
+            for (int j = 0; j <= i; j++) {
+                if (j == 0 || j == i) {
+                    integerList.add(1);
+                } else {
+                    integerList.add(
+                            listList.get(i - 1).get(j - 1)
+                                    + listList.get(i - 1).get(j)
+                    );
+                }
+            }
+
+            // Missing line
+            listList.add(integerList);
+        }
+
+        return listList.get(rowIndex);
     }
         // 1,1,1
     // k=2
