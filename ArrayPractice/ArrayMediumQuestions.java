@@ -254,6 +254,7 @@ public class ArrayMediumQuestions {
             Arrays.sort(chars);
             String key = new String(chars);
 
+
             if(map.containsKey(key)){
                 List<String> stringList = map.get(key);
                 stringList.add(Value);
@@ -272,4 +273,36 @@ public class ArrayMediumQuestions {
 
     }
 
+
+    public static int subarraySum(int[] nums, int k) {
+        int preSum = 0;
+        int count = 0;
+        Map<Integer,Integer>map = new HashMap<>();
+        map.put(0,1);
+        for(int i=0;i<nums.length;i++){
+            preSum = preSum + nums[i];
+            int remove = preSum-k;
+            if(map.containsKey(remove)){
+                count = count + map.get(remove);
+            }
+            map.put(preSum,map.getOrDefault(preSum,0)+1);
+        }
+        return count;
+    }
+    public static int pivotIndex(int[] nums) {
+        int totalSum = 0;
+        int leftSum = 0;
+        for (int num:nums) {
+            totalSum += num;
+        }
+        for(int i=1;i<nums.length;i++){
+            int rightSum = totalSum - leftSum-nums[i];
+
+            if(leftSum == rightSum){
+                return i;
+            }
+            leftSum = leftSum + nums[i];
+        }
+        return -1;
+    }
 }
