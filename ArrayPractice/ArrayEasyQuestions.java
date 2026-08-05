@@ -21,9 +21,9 @@ public class ArrayEasyQuestions {
 //                {4,5,6},
 //                {7,8,9}
 //        };
-        int[]arr = {0,1,2,4,5,7};
+        int[]arr = {5};
 
-        System.out.println( summaryRanges(arr));
+        System.out.println( findMaxAverage(arr,1));
 
 
       //  System.out.println(getRow(3));
@@ -1359,6 +1359,25 @@ public class ArrayEasyQuestions {
 //        }
 //        return count;
 //    }
+
+    public static double findMaxAverage(int[] nums, int k) {
+        double maxAvg = 0;
+        int left = 0;
+        int right = k;
+        double sum = 0;
+        for(int i = 0; i<k;i++){
+            sum = sum + nums[i];
+        }
+        maxAvg = sum/k;
+        while (left<right && right<nums.length){
+            sum = sum + nums[right];
+            sum = sum - nums[left];
+            right++;
+            left++;
+            maxAvg = Math.max(maxAvg,sum/k);
+        }
+        return maxAvg;
+    }
 
 }
 
