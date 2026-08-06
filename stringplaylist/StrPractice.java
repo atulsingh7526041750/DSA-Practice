@@ -15,7 +15,7 @@ public class StrPractice {
 
 //        System.out.println(longestPalindrome(str1));
         int []arr = {1,2,3,1,2,3};
-        System.out.println(containsNearbyDuplicate(arr,1));
+//        System.out.println(nextGreaterElement(arr,1));
 
 //        String str = "35427";
 //        String s = "abcde";
@@ -668,6 +668,37 @@ public class StrPractice {
 //        return result.reverse().toString();
 //
 //    }
+
+    /**
+     * nums1 =
+     * [4,1,2]
+     * nums2 =
+     * [1,3,4,2]
+     * Output
+     * [4,3,-1]
+     * Expected
+     * [-1,3,-1]
+     */
+
+    public String reverseStr(String s, int k) {
+        char[] arr = s.toCharArray();
+
+        for (int i = 0; i < arr.length; i += 2 * k) {
+            int left = i;
+            int right = Math.min(i + k - 1, arr.length - 1);
+
+            while (left < right) {
+                char temp = arr[left];
+                arr[left] = arr[right];
+                arr[right] = temp;
+                left++;
+                right--;
+            }
+        }
+
+        return new String(arr);
+    }
+
 
 
 
