@@ -21,9 +21,18 @@ public class ArrayEasyQuestions {
 //                {4,5,6},
 //                {7,8,9}
 //        };
-        int[]arr = {5};
+//        int[]arr = {2,4,9,3};
+//        int k = -2;
+//
+//        int arr1[] = decrypt(arr,k);
+//        for (int i=0;i<arr1.length;i++){
+//            System.out.println(arr1[i]);
+//        }
 
-        System.out.println( findMaxAverage(arr,1));
+String s ="Let's take LeetCode contest";
+        System.out.println(reverseWords(s));
+
+//        System.out.println( findMaxAverage(arr,1));
 
 
       //  System.out.println(getRow(3));
@@ -1360,6 +1369,7 @@ public class ArrayEasyQuestions {
 //        return count;
 //    }
 
+
     public static double findMaxAverage(int[] nums, int k) {
         double maxAvg = 0;
         int left = 0;
@@ -1378,6 +1388,179 @@ public class ArrayEasyQuestions {
         }
         return maxAvg;
     }
+
+    /**
+     * Input: code = [5,7,1,4], k = 3
+     * Output: [12,10,16,13]
+     * Explanation: Each number is replaced by the sum of the next 3 numbers. The decrypted code is [7+1+4, 1+4+5, 4+5+7, 5+7+1]. Notice that the numbers wrap around.
+     * Example 2:
+     *
+     * Input: code = [1,2,3,4], k = 0
+     * Output: [0,0,0,0]
+     * Explanation: When k is zero, the numbers are replaced by 0.
+     * Example 3:
+     *
+     * Input: code = [2,4,9,3], k = -2
+     * Output: [12,5,6,13]
+     * @param code
+     * @param k
+     * @return
+     *
+     * [5,7,1,4,6,4,3], k = 3
+     * [12,11,14,13,12,15,13]
+     */
+    public static int[] decrypt(int[] code, int k) {
+        int n = code.length;
+        int[]arr = new int[n];
+        int first = 0;
+        int sum = 0;
+        int right = k;
+        if(k ==0){
+            return arr;
+        }
+        if(k>0) {
+            for (int i = 1; i <= k; i++) {
+                sum = sum + code[i];
+            }
+            for (int i = 0; i < code.length; i++) {
+                arr[i] = sum;
+                right++;
+                sum = sum + code[(right) % (n)];
+                sum = sum - code[(i + 1) % n];
+            }
+            return arr;
+        }
+        if(k<0){
+            int n1 = code.length;
+            int start = n-Math.abs(k);
+            int sum1 = 0;
+            int right1 = n1-1;
+            for (int i = n1-Math.abs(k); i<n1; i++) {
+                sum1 = sum1 + code[i];
+            }
+            for (int i = 0; i < code.length; i++) {
+                arr[i] = sum1;
+                right1++;
+                sum1 = sum1 + code[(right1) % (n1)];
+                sum1 = sum1 - code[(start) % n1];
+                start++;
+
+            }
+            return arr;
+
+        }
+        return arr;
+    }
+//    public static String reverseStringHelper(String){
+//
+//    }
+    public static String reverseStrinhelp(String str){
+        char[]chars = str.toCharArray();
+        int left = 0;
+        int right = str.length()-1;
+        while (left<=right){
+            char temp = chars[left];
+            chars[left] = chars[right];
+            chars[right] = temp;
+            left++;
+            right--;
+        }
+        return new String(chars);
+    }
+
+    public static String reverseWords(String s) {
+        String[]strings = s.split(" ");
+        String str = "";
+        for(int i = 0;i<strings.length;i++){
+            str  = str + reverseStrinhelp(strings[i]) + " ";
+        }
+        return str.trim();
+
+    }
+
+
+//    public static String reverseStrMySolution(String s, int k) {
+//        char[] chars = s.toCharArray();
+//        int left = 0;
+//        int right = left+k;
+//        if(s.length()<k){
+//            left = 0;
+//            right = left+k;
+//            while (right<=left){
+//                char temp = chars[left];
+//                chars[left] = chars[right];
+//                chars[right] = temp;
+//                left++;
+//                right--;
+//            }
+//            return new String(chars);
+//
+//        }
+//        if(s.length()>k & s.length()<2*k){
+//            left = 0;
+//            right = left+k;
+//            while (right<=left){
+//                char temp = chars[left];
+//                chars[left] = chars[right];
+//                chars[right] = temp;
+//                left++;
+//                right--;
+//            }
+//            return new String(chars);
+//
+//        }
+//        int first = 0;
+//        int second = first+k;
+//        left = 0;
+//        right = left+k;
+//
+//        while (right<s.length()){
+//            while (first<=second){
+//                char temp = chars[first];
+//                chars[first] = chars[second];
+//                chars[second] = temp;
+//                first++;
+//                second--;
+//            }
+//            first = first + 2*k +1;
+//            second = first+k;
+//
+//            left = left + 2*k+1;
+//            right = left+k;
+//            if(left<s.length() && right < s.length()){
+//                continue;
+//            }
+//            else {
+//                break;
+//            }
+//        }
+//        if(s.length()-left <k){
+//            left = 0;
+//            right = s.length()-1;
+//            while (right<=left){
+//                char temp = chars[left];
+//                chars[left] = chars[right];
+//                chars[right] = temp;
+//                left++;
+//                right--;
+//            }
+//            return new String(chars);
+//        }
+//        if(s.length()-left >k ){
+//            right = left+k;
+//            while (right<=left){
+//                char temp = chars[left];
+//                chars[left] = chars[right];
+//                chars[right] = temp;
+//                left++;
+//                right--;
+//            }
+//            return new String(chars);
+//        }
+//
+//        return new String(chars);
+//
+//    }
 
 }
 
