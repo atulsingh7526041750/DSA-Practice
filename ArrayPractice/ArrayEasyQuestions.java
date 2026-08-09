@@ -29,8 +29,8 @@ public class ArrayEasyQuestions {
 //            System.out.println(arr1[i]);
 //        }
 
-String s ="Let's take LeetCode contest";
-        System.out.println(reverseWords(s));
+String s ="aguokepatgbnvfqmgmlcupuufxoohdfpgjdmysgvhmvffcnqxjjxqncffvmhvgsymdjgpfdhooxfuupuculmgmqfvnbgtapekouga";
+        System.out.println(validPalindrome(s));
 
 //        System.out.println( findMaxAverage(arr,1));
 
@@ -1598,6 +1598,31 @@ String s ="Let's take LeetCode contest";
 
             return right - left - 1;
         }
+    }
+
+    public boolean validPalindrome(String s) {
+        int first = 0;
+        int last = s.length() - 1;
+        while (first < last) {
+            if (s.charAt(first) != s.charAt(last)) {
+                return isPalindrome(s, first + 1, last)
+                        || isPalindrome(s, first, last - 1);
+            }
+            first++;
+            last--;
+
+        }
+        return true;
+    }
+    public  boolean isPalindrome(String s, int first, int last) {
+        while (first < last) {
+            if (s.charAt(first) != s.charAt(last)) {
+                return false;
+            }
+            first++;
+            last--;
+        }
+        return true;
     }
 
 }
