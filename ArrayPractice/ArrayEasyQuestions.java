@@ -1625,6 +1625,20 @@ String s ="aguokepatgbnvfqmgmlcupuufxoohdfpgjdmysgvhmvffcnqxjjxqncffvmhvgsymdjgp
         return true;
     }
 
+
+    public int climbStairs(int n) {
+        int oneStep = 1;
+        int twoStep = 1;
+
+        for (int i = 2; i <= n; i++) {
+            int current = oneStep + twoStep;
+            twoStep = oneStep;
+            oneStep = current;
+        }
+
+        return oneStep;
+    }
+
 }
 
 
