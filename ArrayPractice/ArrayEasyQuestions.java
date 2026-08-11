@@ -29,8 +29,9 @@ public class ArrayEasyQuestions {
 //            System.out.println(arr1[i]);
 //        }
 
-String s ="aguokepatgbnvfqmgmlcupuufxoohdfpgjdmysgvhmvffcnqxjjxqncffvmhvgsymdjgpfdhooxfuupuculmgmqfvnbgtapekouga";
-        System.out.println(validPalindrome(s));
+//String s ="aguokepatgbnvfqmgmlcupuufxoohdfpgjdmysgvhmvffcnqxjjxqncffvmhvgsymdjgpfdhooxfuupuculmgmqfvnbgtapekouga";
+//        System.out.println(validPalindrome(s));
+
 
 //        System.out.println( findMaxAverage(arr,1));
 
@@ -43,8 +44,10 @@ String s ="aguokepatgbnvfqmgmlcupuufxoohdfpgjdmysgvhmvffcnqxjjxqncffvmhvgsymdjgp
 
 //        int [][] practiceArray2 = new int[5][6];
 //        System.out.println(thirdMax(nums1));
+        int [][] arr= {{0,0},{0,1},{1,0},{0,2},{2,0}};
 
-
+        double ans = largestTriangleArea(arr);
+        System.out.println(ans);
     }
 
     /**
@@ -1637,6 +1640,37 @@ String s ="aguokepatgbnvfqmgmlcupuufxoohdfpgjdmysgvhmvffcnqxjjxqncffvmhvgsymdjgp
         }
 
         return oneStep;
+    }
+    public double largestTriangleArea(int[][] points) {
+        double maxArea = 0;
+
+        int n = points.length;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                for (int k = j + 1; k < n; k++) {
+
+                    int x1 = points[i][0];
+                    int y1 = points[i][1];
+
+                    int x2 = points[j][0];
+                    int y2 = points[j][1];
+
+                    int x3 = points[k][0];
+                    int y3 = points[k][1];
+
+                    double area = 0.5 * Math.abs(
+                            x1 * (y2 - y3) +
+                                    x2 * (y3 - y1) +
+                                    x3 * (y1 - y2)
+                    );
+
+                    maxArea = Math.max(maxArea, area);
+                }
+            }
+        }
+
+        return maxArea;
     }
 
 }
