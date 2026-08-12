@@ -44,10 +44,14 @@ public class ArrayEasyQuestions {
 
 //        int [][] practiceArray2 = new int[5][6];
 //        System.out.println(thirdMax(nums1));
-        int [][] arr= {{0,0},{0,1},{1,0},{0,2},{2,0}};
+//        int [][] arr= {{0,0},{0,1},{1,0},{0,2},{2,0}};
+        String[]strings = {"cd","ac","dc","ca","zz"};
+        int a = maximumNumberOfStringPairs(strings);
+        System.out.println(a);
 
-        double ans = largestTriangleArea(arr);
-        System.out.println(ans);
+
+//        double ans = largestTriangleArea(arr);
+//        System.out.println(ans);
     }
 
     /**
@@ -1671,6 +1675,18 @@ public class ArrayEasyQuestions {
         }
 
         return maxArea;
+    }
+
+    public static int maximumNumberOfStringPairs(String[] words) {
+
+        Set<String>set = new HashSet<>();
+        for(int i=0;i<words.length;i++){
+            char[]chars = words[i].toCharArray();
+           Arrays.sort(chars);
+           String str = new String(chars);
+           set.add(str);
+        }
+        return words.length-set.size();
     }
 
 }
