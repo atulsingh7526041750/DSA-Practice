@@ -1,5 +1,6 @@
 package ArrayPractice;
 
+import java.lang.reflect.MalformedParameterizedTypeException;
 import java.util.*;
 
 public class ArrayEasyQuestions {
@@ -45,9 +46,11 @@ public class ArrayEasyQuestions {
 //        int [][] practiceArray2 = new int[5][6];
 //        System.out.println(thirdMax(nums1));
 //        int [][] arr= {{0,0},{0,1},{1,0},{0,2},{2,0}};
-        String[]strings = {"cd","ac","dc","ca","zz"};
-        int a = maximumNumberOfStringPairs(strings);
-        System.out.println(a);
+//        String[]strings = {"cd","ac","dc","ca","zz"};
+//        int a = maximumNumberOfStringPairs(strings);
+//        System.out.println(a);
+
+        System.out.println(convertToTitle(28));
 
 
 //        double ans = largestTriangleArea(arr);
@@ -1678,15 +1681,71 @@ public class ArrayEasyQuestions {
     }
 
     public static int maximumNumberOfStringPairs(String[] words) {
-
         Set<String>set = new HashSet<>();
-        for(int i=0;i<words.length;i++){
-            char[]chars = words[i].toCharArray();
-           Arrays.sort(chars);
-           String str = new String(chars);
-           set.add(str);
+        int count = 0;
+//        for(int i=0;i<words.length;i++){
+//            char[]chars = words[i].toCharArray();
+//           Arrays.sort(chars);
+//           String str = new String(chars);
+//           set.add(str);
+//        }
+//        return words.length-set.size();
+        for (String word: words) {
+            String reverse = new StringBuilder(word).reverse().toString();
+            if(set.contains(reverse)){
+                count++;
+            }
+            else {
+                set.add(word);
+            }
         }
-        return words.length-set.size();
+        return count;
+    }
+
+    public static int sumOfSquares(int[] nums) {
+        int n = nums.length;
+        int sum = 0;
+
+        for (int i=0;i<nums.length;i++){
+            if(n%i == 0){
+                sum = sum + nums[i]*nums[i];
+            }
+        }
+        return  sum;
+
+    }
+
+    public static String convertToTitle(int columnNumber) {
+        Map<Integer,Character>map = new HashMap<>();
+        int count = 1;
+        int count1 = 0;
+        for (char i = 'A';i<='Z';i++){
+            map.put(count,i);
+            count++;
+        }
+        int num = columnNumber;
+        if(num<=26){
+            map.get(num);
+            return new String(String.valueOf(map.get(num)));
+        }
+        while (num>26){
+            num = num-26;
+            count1++;
+        }
+        String str = String.valueOf(map.get(count1));
+        String str2 = String.valueOf(map.get(num));
+        return str+str2;
+
+    }
+
+    public static boolean uniqueOccurrences(int[] arr) {
+        Map<Integer,Integer>map = new HashMap<>();
+        Set<Integer>set = new HashSet<>();
+        for (int i=0;i<arr.length;i++){
+            if(map.containsKey(arr[i])){
+                map.put(arr[i],map.get(arr[i])+1);
+            }
+        }
     }
 
 }
