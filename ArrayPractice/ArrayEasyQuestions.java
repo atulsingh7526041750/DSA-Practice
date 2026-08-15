@@ -45,12 +45,13 @@ public class ArrayEasyQuestions {
 
 //        int [][] practiceArray2 = new int[5][6];
 //        System.out.println(thirdMax(nums1));
-//        int [][] arr= {{0,0},{0,1},{1,0},{0,2},{2,0}};
+        int [][] arr= {{1,1},{2,2},{3,4},{4,5},{5,6},{7,7}};
 //        String[]strings = {"cd","ac","dc","ca","zz"};
 //        int a = maximumNumberOfStringPairs(strings);
 //        System.out.println(a);
+//        int[]arr = {-3,0,1,-3,1,1,1,-3,10,0};
 
-        System.out.println(convertToTitle(28));
+        System.out.println(checkStraightLine(arr));
 
 
 //        double ans = largestTriangleArea(arr);
@@ -1745,7 +1746,27 @@ public class ArrayEasyQuestions {
             if(map.containsKey(arr[i])){
                 map.put(arr[i],map.get(arr[i])+1);
             }
+            else {
+                map.put(arr[i],1);
+            }
         }
+        for (Map.Entry<Integer,Integer> entry:map.entrySet()){
+            set.add(entry.getValue());
+        }
+        if(map.size() == set.size()){
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean checkStraightLine(int[][] coordinates) {
+        for (int i=0;i<coordinates.length-1;i++){
+            if(coordinates[i+1][1]-coordinates[i][1]>1 ||  coordinates[i+1][0]-coordinates[i][0]>1){
+                return false;
+            }
+        }
+        return true;
+
     }
 
 }
